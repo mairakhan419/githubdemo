@@ -187,14 +187,35 @@ public class TicTacToe extends Canvas {
         return false;
     }
 
-    private static int[] hint(int[][] board, int human) {
+    //hint
+    private static int[] hint(int[][] board, int piece) {
+        for (int i=0; i< board.length; i++) {
+            for (int c=0; c<board[0].length; c++) {
+                if (canPlay(board, i, c) == true) {
+                    play(board, i, c, piece);
+                    if (winInRow(board, i, piece) == true || winInColumn(board, c, piece) == true || winInDiagonalBS(board, piece) == true || winInDiagonalFS(board, piece) == true) {
+                        // remove it
+                        board[i][c] = EMPTY;
+                        return new int[] {i,c};
+
+
+
+                        //int lastMoveRow = board[board.length - 1][board[board.length - 1].length - 1];
+                        //board[board.length - 1][board[board.length - 1].length - 1] = EMPTY;
+
+
+
+                    }else {
+                        // remove it
+                        board[i][c] = EMPTY;
+
+                    }
+                }
+            }
+        }
         return new int[]{-1,-1};
     }
-    //wininRow
-    //winInColumn
-    //winInDiagonalBS
-    //winInDigonalFS
-    //hint
+
 
     //The following are completed for you already
 
