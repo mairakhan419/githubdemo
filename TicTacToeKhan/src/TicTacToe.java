@@ -46,7 +46,7 @@ public class TicTacToe extends Canvas {
         //storing 0s in each entry of matrix
         for (int rowEntry=0; rowEntry<arrayBoard.length; rowEntry++) {
             for (int colEntry=0; colEntry<arrayBoard[rowEntry].length; colEntry++) {
-                arrayBoard[rowEntry][colEntry] = 0;
+                arrayBoard[rowEntry][colEntry] = EMPTY;
             }
         }
         return arrayBoard;
@@ -100,18 +100,28 @@ public class TicTacToe extends Canvas {
 
     //full
     public static boolean full(int[][] board) {
-        boolean full = false;
-        for (int i=0; i<board.length; i++) {
-            if (full) break;
-            for (int j=0; j<board[i].length; j++) {
-                if (board[i][j] != EMPTY) {
-                    full = true;
-                    break;
+//        boolean full = false;
+//        for (int i=0; i<board.length; i++) {
+//            if (full) break;
+//            for (int j=0; j<board[i].length; j++) {
+//                if (board[i][j] != EMPTY) {
+//                    full = true;
+//                    break;
+//                }
+//            }
+//        }
+//        return full;
+        //or return false here
+//    }
+        int count = 0;
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[row].length; col++) {
+                if (board[row][col] == EMPTY) {
+                    count++;
                 }
             }
         }
-        return full;
-        //or return false here
+        return (count == EMPTY);
     }
     //wininRow
     public static boolean winInRow(int[][] board, int row, int piece) {
@@ -140,7 +150,8 @@ public class TicTacToe extends Canvas {
         int count = 0;
         for (int i=0; i<board[row].length; i++) {  //[0,0,0]
             count = 0;
-            if (board[row][i] == piece && board[row][i] == board[row][i+1]) {
+            //if (board[row][i] == piece && board[row][i] == board[row][i+1]) {
+            if (board[row][i] == piece && board[row][i+1] == piece) {
                 count++;
             }
             if (count == 3) {
@@ -190,7 +201,7 @@ public class TicTacToe extends Canvas {
     //hint
     private static int[] hint(int[][] board, int piece) {
         for (int i=0; i< board.length; i++) {
-            for (int c=0; c<board[0].length; c++) {
+            for (int c=0; c<board[i].length; c++) {
                 if (canPlay(board, i, c) == true) {
                     play(board, i, c, piece);
                     if (winInRow(board, i, piece) == true || winInColumn(board, c, piece) == true || winInDiagonalBS(board, piece) == true || winInDiagonalFS(board, piece) == true) {
