@@ -190,12 +190,6 @@ public class TicTacToe extends Canvas {
     private static int[] hint(int[][] board, int human) {
         return new int[]{-1,-1};
     }
-    //createBoard
-    //rowsIn
-    //columnsIn
-    //canPlay
-    //play
-    //full
     //wininRow
     //winInColumn
     //winInDiagonalBS
