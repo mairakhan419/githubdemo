@@ -212,10 +212,25 @@ public class TicTacToe extends Canvas {
 
     //winInDiagonalBS
     public static boolean winInDiagonalBS(int[][] board, int piece) {
-        for (int i =0; i<board.length; i++) {
-            if (board[i][i] != piece) {
-                break;
-            } else if (i == (board.length -1)) {
+//        for (int i =0; i<board.length; i++) {
+//            if (board[i][i] != piece) {
+//                break;
+//            } else if (i == (board.length -1)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+        //method 2
+        int count1 = 0;
+        for (int i = 0, j = 0; i < board.length; i++) {
+            if (board[i][j] == piece) {
+                count1++;
+            } else {
+                count1 = 0;
+            }
+            if (count1 == 3) {
                 return true;
             }
         }
@@ -223,15 +238,33 @@ public class TicTacToe extends Canvas {
     }
 
     private static boolean winInDiagonalFS(int[][] board, int piece) {
-        for (int i=0; i<board.length; i++) {
-            if (board[i][board.length - i - 1] != piece) {
-                break;
-            } else if (i == (board.length-1)) {
+//        for (int i=0; i<board.length; i++) {
+//            if (board[i][board.length - i - 1] != piece) {
+//                break;
+//            } else if (i == (board.length-1)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+        //method 2
+        int count = 0;
+        for (int i = board.length - 1, j = board[i].length - 1; i >= 0; i--, j--) {
+            if (board[i][j] == piece) {
+                count++;
+            } else {
+                count = 0;
+            }
+            if (count == 3) {
                 return true;
             }
         }
         return false;
     }
+
+
+
 
     //hint
     private static int[] hint(int[][] board, int piece) {
