@@ -147,12 +147,27 @@ public class TicTacToe extends Canvas {
 //        return false;
 
         //method 2:
+//        int count = 0;
+//        for (int i=0; i<board[row].length; i++) {  //[0,0,0]
+//            count = 0;
+//            //if (board[row][i] == piece && board[row][i] == board[row][i+1]) {
+//            if (board[row][i] == piece && board[row][i+1] == piece) {
+//                count++;
+//            }
+//            if (count == 3) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+        //method 3
         int count = 0;
-        for (int i=0; i<board[row].length; i++) {  //[0,0,0]
-            count = 0;
-            //if (board[row][i] == piece && board[row][i] == board[row][i+1]) {
-            if (board[row][i] == piece && board[row][i+1] == piece) {
+        for (int column = 0; column < board[row].length; ++column) {
+            if (board[row][column] == piece) {
                 count++;
+            } else {
+                count = 0;
             }
             if (count == 3) {
                 return true;
@@ -160,13 +175,32 @@ public class TicTacToe extends Canvas {
         }
         return false;
     }
+
+
+
+
     //winInColumn
     public static boolean winInColumn(int[][] board, int column, int piece) {
+//        int count = 0;
+//        for (int i=0; i<board.length; i++) {
+//            count = 0;
+//            if (board[i][column] == piece && board[i][column] == board[i][column+1]) {
+//                count++;
+//            }
+//            if (count == 3) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+        //method 2
         int count = 0;
-        for (int i=0; i<board.length; i++) {
-            count = 0;
-            if (board[i][column] == piece && board[i][column] == board[i][column+1]) {
+        for (int col = 0; col<board.length; col++) {
+            if (board[col][column] == piece) {
                 count++;
+            } else {
+                count = 0;
             }
             if (count == 3) {
                 return true;
@@ -174,6 +208,7 @@ public class TicTacToe extends Canvas {
         }
         return false;
     }
+
 
     //winInDiagonalBS
     public static boolean winInDiagonalBS(int[][] board, int piece) {
