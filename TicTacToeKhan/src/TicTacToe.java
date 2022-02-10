@@ -15,6 +15,11 @@ import java.util.List;
  * To complete this game @student will complete and test the functions required.
  *
  * @author Maira Khan
+ * @course CPSC 233
+ * @instructor Jonathan Hudson
+ * @tutorial Abdel Ghani
+ * @studentID 30047942
+ * @date 10 February 2020
  * @version 1.0
  */
 public class TicTacToe extends Canvas {
@@ -38,58 +43,84 @@ public class TicTacToe extends Canvas {
      * STUDENT CODE
      * ---------------------------------------------------------------------------------------------------------- */
 
-    //Put your code here
     //createBoard
+    /**
+     * function to create a mxn board from user input
+     *
+     * @param rows horizontal arrangement for objects on the board
+     * @param columns vertical arrangement for objects on the board
+     * @return arrayBoard The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     */
     public static int[][] createBoard(int rows, int columns) {
         //initializing 2D array using rows for first dimension and columns for second dimension.
         int[][] arrayBoard = new int[rows][columns];
-        //storing 0s in each entry of matrix
+        //iterating through each [row][column] entry of board
         for (int rowEntry=0; rowEntry<arrayBoard.length; rowEntry++) {
             for (int colEntry=0; colEntry<arrayBoard[rowEntry].length; colEntry++) {
+                //storing 0s in each entry of matrix
                 arrayBoard[rowEntry][colEntry] = EMPTY;
             }
         }
         return arrayBoard;
     }
+
     //rowsIn
+    /**
+     * function returns the number of rows in tictactac board
+     *
+     * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     * @return rowLength an integer for the number of rows in tictactoe board
+     */
     public static int rowsIn(int[][] board) {
         //assuming board is a valid 2D int array.
-        //calculate and return the # of rows in an integer form.
-        //the length of a 2D array is equal to the number of rows it has
+        //the length of the 2D array is equal to the number of rows it has
+        //board.length will account for the horizontal count in 2d array, i.e. the number of rows
         int rowLength = board.length;
         return rowLength;
     }
+
     //columnsIn
+    /**
+     * function returns the number of columns in tictactoe board
+     *
+     * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     * @return colLength an integer for the number of columns in tictactoe board
+     */
     public static int columnsIn(int[][] board) {
         //assuming board is a valid 2D int array.
-        //calculate and return the # of columns in an integer form
         //the length of one row will give the number of columns for the array in itself
+        //board[0].length will account for the vertical count of a row in 2d array, i.e. the number of columns
         int colLength = board[0].length;
         return colLength;
     }
+
     //canPlay
+    /**
+     * function that determines if there is an empty placement on board for play on indicated [row][column] location
+     *
+     * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     * @param row horizontal arrangement for objects on the board
+     * @param column vertical arrangement for objects on the board
+     * @return True if the entry of the indicated location on the tictactoe board is EMPTY
+     */
     public static boolean canPlay(int[][] board, int row, int column) {
-        //assuming board is valid 2d int array
-        //assuming row/column are valid indices in board
-        //return True if the location on board is EMPTY
-//        for (int row=0; row<board.length; row++) {
-//            for (int column=0; column<board[row].length; column++) {
-//                if (board[row][column] == EMPTY) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            }
-//        }
-        //or return false here
+        //assuming row/column are valid indices on board
         if (board[row][column] == EMPTY) {
-            return true;
+            return true;                    //play is allowed on the [row][column] location
         } else {
-            return false;
+            return false;                   //play is not allowed on the [row][column] location
         }
     }
 
     //play
+    /**
+     * function plays move by player, by assigning piece to indicated [row][column] location
+     *
+     * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     * @param row horizontal arrangement for objects on the board
+     * @param column vertical arrangement for objects on the board
+     * @param piece X==1/O==2
+     */
     public static void play(int[][] board, int row, int column, int piece) {
 //        assuming board is valid 2D int array
 //        assuming row/column are valid indices on board and (row/column) location is EMPTY
@@ -224,7 +255,7 @@ public class TicTacToe extends Canvas {
 
         //method 2
         int count1 = 0;
-        for (int i = 0, j = 0; i < board.length; i++) {
+        for (int i = 0, j = 0; i < board.length; i++, j++) {
             if (board[i][j] == piece) {
                 count1++;
             } else {
