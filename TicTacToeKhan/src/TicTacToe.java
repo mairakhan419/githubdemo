@@ -14,7 +14,12 @@ import java.util.List;
  * There is an implemented AI.
  * To complete this game @student will complete and test the functions required.
  *
- * @author Jonathan Hudson
+ * @author Maira Khan
+ * @course CPSC 233 W22
+ * @instructor Jonathan Hudson
+ * @tutorial Abdel Ghani
+ * @studentID 30047942
+ * @date 11 February 2022
  * @version 1.0
  */
 public class TicTacToe extends Canvas {
@@ -38,19 +43,6 @@ public class TicTacToe extends Canvas {
      * STUDENT CODE
      * ---------------------------------------------------------------------------------------------------------- */
 
-    //Put your code here
-    //createBoard
-    //rowsIn
-    //columnsIn
-    //canPlay
-    //play
-    //full
-    //wininRow
-    //winInColumn
-    //winInDiagonalBS
-    //winInDigonalFS
-    //hint
-
     /**
      * function to create a mxn board from user input
      *
@@ -71,7 +63,7 @@ public class TicTacToe extends Canvas {
         return arrayBoard;
     }
 
-    //rowsIn
+
     /**
      * function returns the number of rows in tictactac board
      *
@@ -86,7 +78,7 @@ public class TicTacToe extends Canvas {
         return rowLength;
     }
 
-    //columnsIn
+
     /**
      * function returns the number of columns in tictactoe board
      *
@@ -101,7 +93,7 @@ public class TicTacToe extends Canvas {
         return colLength;
     }
 
-    //canPlay
+
     /**
      * function that determines if there is an empty placement on board for play on indicated [row][column] location
      *
@@ -119,7 +111,7 @@ public class TicTacToe extends Canvas {
         }
     }
 
-    //play
+
     /**
      * function plays move by player, by assigning piece to indicated [row][column] location
      *
@@ -129,29 +121,42 @@ public class TicTacToe extends Canvas {
      * @param piece X==1/O==2
      */
     public static void play(int[][] board, int row, int column, int piece) {
-        //        assuming board is valid 2D int array
-        //        assuming row/column are valid indices on board and (row/column) location is EMPTY
-        //piece is X==1/O==2
-        //play, by assigning piece, to indicated (row/column) location on board
+        //assuming row/column are valid indices on board and (row/column) location is EMPTY
+        //play initiated by assigning piece, to indicated (row/column) location on board
         board[row][column] = piece;
     }
 
-    //full
+    /**
+     * this function is used for identifying if all the entries in the board are full
+     *
+     * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     * @return true if board is filled with no EMPTY pieces
+     */
     public static boolean full(int[][] board) {
-
+        //iterating through every board entry by [row][column]
         int count = 0;
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[row].length; col++) {
+                //identifying if there are any EMPTY pieces in the board
                 if (board[row][col] == EMPTY) {
                     count++;
                 }
             }
         }
+        //returning a boolean for the count being EMPTY or not
         return (count == EMPTY);
     }
-    //wininRow
+
+
+    /**
+     *
+     * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     * @param row horizontal arrangement for objects on the board
+     * @param piece vertical arrangement for objects on the board
+     * @return true if there is 3 consecutive enteries of piece (X/O) within any of the given column alignment
+     */
     public static boolean winInRow(int[][] board, int row, int piece) {
-        //method 3
+        //iterating through all [row][column] entry to find 3 consecutive pieces horizontally
         int count = 0;
         for (int column = 0; column < board[row].length; ++column) {
             if (board[row][column] == piece) {
