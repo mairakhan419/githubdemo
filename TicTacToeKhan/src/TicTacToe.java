@@ -14,12 +14,7 @@ import java.util.List;
  * There is an implemented AI.
  * To complete this game @student will complete and test the functions required.
  *
- * @author Maira Khan
- * @course CPSC 233
- * @instructor Jonathan Hudson
- * @tutorial Abdel Ghani
- * @studentID 30047942
- * @date 10 February 2020
+ * @author Jonathan Hudson
  * @version 1.0
  */
 public class TicTacToe extends Canvas {
@@ -43,7 +38,19 @@ public class TicTacToe extends Canvas {
      * STUDENT CODE
      * ---------------------------------------------------------------------------------------------------------- */
 
+    //Put your code here
     //createBoard
+    //rowsIn
+    //columnsIn
+    //canPlay
+    //play
+    //full
+    //wininRow
+    //winInColumn
+    //winInDiagonalBS
+    //winInDigonalFS
+    //hint
+
     /**
      * function to create a mxn board from user input
      *
@@ -122,8 +129,8 @@ public class TicTacToe extends Canvas {
      * @param piece X==1/O==2
      */
     public static void play(int[][] board, int row, int column, int piece) {
-//        assuming board is valid 2D int array
-//        assuming row/column are valid indices on board and (row/column) location is EMPTY
+        //        assuming board is valid 2D int array
+        //        assuming row/column are valid indices on board and (row/column) location is EMPTY
         //piece is X==1/O==2
         //play, by assigning piece, to indicated (row/column) location on board
         board[row][column] = piece;
@@ -131,19 +138,7 @@ public class TicTacToe extends Canvas {
 
     //full
     public static boolean full(int[][] board) {
-//        boolean full = false;
-//        for (int i=0; i<board.length; i++) {
-//            if (full) break;
-//            for (int j=0; j<board[i].length; j++) {
-//                if (board[i][j] != EMPTY) {
-//                    full = true;
-//                    break;
-//                }
-//            }
-//        }
-//        return full;
-        //or return false here
-//    }
+
         int count = 0;
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[row].length; col++) {
@@ -156,42 +151,6 @@ public class TicTacToe extends Canvas {
     }
     //wininRow
     public static boolean winInRow(int[][] board, int row, int piece) {
-        //look at indicated row, at given index in board. if that row has at least 3 consecutive enteries with given
-        //type of piece (X/O), then return true, otherwise return false.
-        //method1:
-//        for (int row=0; row<board.length; row++) {
-//            int countOfPiece = 0;
-//            int rowScanner = board.length[row][0];
-//            if (rowScanner == EMPTY) continue;
-//            for (int column=1; column<board[0].length; column++) {
-//                int nextRow = board[row][column];
-//                if (nextRow == EMPTY) {
-//                    break;
-//                } else {
-//                    if (board[row][column] == piece) {
-//                    countOfPiece++;
-//            }
-//            if (countOfPiece == 3) {
-//                return true;
-//            }
-//        }
-//        return false;
-
-        //method 2:
-//        int count = 0;
-//        for (int i=0; i<board[row].length; i++) {  //[0,0,0]
-//            count = 0;
-//            //if (board[row][i] == piece && board[row][i] == board[row][i+1]) {
-//            if (board[row][i] == piece && board[row][i+1] == piece) {
-//                count++;
-//            }
-//            if (count == 3) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
         //method 3
         int count = 0;
         for (int column = 0; column < board[row].length; ++column) {
@@ -212,18 +171,6 @@ public class TicTacToe extends Canvas {
 
     //winInColumn
     public static boolean winInColumn(int[][] board, int column, int piece) {
-//        int count = 0;
-//        for (int i=0; i<board.length; i++) {
-//            count = 0;
-//            if (board[i][column] == piece && board[i][column] == board[i][column+1]) {
-//                count++;
-//            }
-//            if (count == 3) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 
         //method 2
         int count = 0;
@@ -240,64 +187,44 @@ public class TicTacToe extends Canvas {
         return false;
     }
 
-
-    //winInDiagonalBS
-    public static boolean winInDiagonalBS(int[][] board, int piece) {
-//        for (int i =0; i<board.length; i++) {
-//            if (board[i][i] != piece) {
-//                break;
-//            } else if (i == (board.length -1)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-        //method 2
-        int count1 = 0;
-        for (int i = 0, j = 0; i < board.length; i++, j++) {
-            if (board[i][j] == piece) {
-                count1++;
-            } else {
-                count1 = 0;
-            }
-            if (count1 == 3) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean winInDiagonalFS(int[][] board, int piece) {
-//        for (int i=0; i<board.length; i++) {
-//            if (board[i][board.length - i - 1] != piece) {
-//                break;
-//            } else if (i == (board.length-1)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-        //method 2
+    public static boolean winInDiagonalBS(int [][] board, int piece) {
         int count = 0;
-        for (int i = board.length - 1, j = board[i].length - 1; i >= 0; i--, j--) {
-            if (board[i][j] == piece) {
-                count++;
-            } else {
-                count = 0;
-            }
-            if (count == 3) {
-                return true;
+//        int row = 0;
+//        int col = 0;
+//        while (row < board.length && col < board[row].length) {
+        for (int i = 0; i < board.length-2; i++) {
+            for (int j = 0; j<board[i].length-2; j++) {
+                if (board[i][j] == piece && board[i+1][j+1] == piece && board[i+2][j+2] == piece) {
+                    count=3;
+                } else {
+                    count = 0;
+                }
+                if (count == 3) {
+                    return true;
+                }
             }
         }
+//        }
+        return false;
+    }
+
+    public static boolean winInDiagonalFS(int [][] board, int piece) {
+        int count=0;
+        for (int i = board.length-1; i >=2; i--) {
+            for (int j = 0; j<board[i].length-2; j++) {
+                if (board[i][j] == piece && board[i-1][j+1] == piece && board[i-2][j+2] == piece) {
+                    count=3;
+                    return true;
+                } else {
+                    count = 0;
+                }
+            }
+        }
+//        }
         return false;
     }
 
 
-
-
-    //hint
     private static int[] hint(int[][] board, int piece) {
         for (int i=0; i< board.length; i++) {
             for (int c=0; c<board[i].length; c++) {
@@ -307,13 +234,6 @@ public class TicTacToe extends Canvas {
                         // remove it
                         board[i][c] = EMPTY;
                         return new int[] {i,c};
-
-
-
-                        //int lastMoveRow = board[board.length - 1][board[board.length - 1].length - 1];
-                        //board[board.length - 1][board[board.length - 1].length - 1] = EMPTY;
-
-
 
                     }else {
                         // remove it
@@ -325,6 +245,7 @@ public class TicTacToe extends Canvas {
         }
         return new int[]{-1,-1};
     }
+
 
 
     //The following are completed for you already
@@ -371,7 +292,6 @@ public class TicTacToe extends Canvas {
     private static boolean winInAnyDiagonal(int[][] board, int piece) {
         return winInDiagonalBS(board, piece) || winInDiagonalFS(board, piece);
     }
-
 
     /**
      * Has the given piece won the board
@@ -809,8 +729,6 @@ public class TicTacToe extends Canvas {
             }
         }
     }
-
-
 
     /*----------------------------------------------------------------------------------------------------------
      * THIS CODE IS USED TO GET USER INPUT FROM THE GUI
