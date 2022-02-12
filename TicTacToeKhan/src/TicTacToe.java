@@ -149,105 +149,150 @@ public class TicTacToe extends Canvas {
 
 
     /**
+     * function searches for horizontal win anywhere on the board and returns win if true
      *
      * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
      * @param row horizontal arrangement for objects on the board
-     * @param piece vertical arrangement for objects on the board
-     * @return true if there is 3 consecutive enteries of piece (X/O) within any of the given column alignment
+     * @param piece X==1/O==2
+     * @return true if there is 3 consecutive entries of piece (X/O) within any of the given rows on board
      */
     public static boolean winInRow(int[][] board, int row, int piece) {
-        //iterating through all [row][column] entry to find 3 consecutive pieces horizontally
+        //iterating through all [row][column] entry to find 3 consecutive win pieces horizontally
         int count = 0;
+        //using columns to find a horizontal win, since row index is naturally a downward alignment within arrays
         for (int column = 0; column < board[row].length; ++column) {
+            //win can be at any column location of 3, does not have to be at set location
             if (board[row][column] == piece) {
                 count++;
             } else {
                 count = 0;
             }
+            //for when there are three consecutive pieces of the same found in the board, we return that there is a win
+            //within some row.
             if (count == 3) {
                 return true;
             }
         }
+        //return false otherwise
         return false;
     }
 
 
-
-
-    //winInColumn
+    /**
+     * function searches for vertical win anywhere on the board and returns win if true
+     *
+     * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     * @param column vertical arrangement for objects on the board
+     * @param piece X==1/O==2
+     * @return true if there is 3 consecutive entries of piece (X/O) within any of the given columns on board
+     */
     public static boolean winInColumn(int[][] board, int column, int piece) {
-
-        //method 2
+        //iterating through all [row][column] entry to find 3 consecutive win pieces vertically
         int count = 0;
-        for (int col = 0; col<board.length; col++) {
-            if (board[col][column] == piece) {
+        //going down each row in every column
+        for (int row = 0; row<board.length; row++) {
+            if (board[row][column] == piece) {
                 count++;
             } else {
                 count = 0;
             }
+            //for when there are three consecutive pieces of the same, found in some column placement on the board
+            //return there is a vertical win
             if (count == 3) {
                 return true;
             }
         }
+        //return false otherwise
         return false;
     }
 
+    /**
+     * function searches for an anti-diagonal (\) win anywhere on the board and returns win if true
+     *
+     * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     * @param piece X==1/O==2
+     * @return true if there is 3 consecutive entries of piece (X/O) in a backslash form on board
+     */
     public static boolean winInDiagonalBS(int [][] board, int piece) {
+        //iterating through board from top-left corner to the bottom right corner
         int count = 0;
-//        int row = 0;
-//        int col = 0;
-//        while (row < board.length && col < board[row].length) {
-        for (int i = 0; i < board.length-2; i++) {
-            for (int j = 0; j<board[i].length-2; j++) {
-                if (board[i][j] == piece && board[i+1][j+1] == piece && board[i+2][j+2] == piece) {
+        //row and column increments while searching through each entry to find winning pieces
+        //adjusting for indexing errors with -2
+        for (int row = 0; row < board.length-2; row++) {
+            for (int column = 0; column<board[row].length-2; column++) {
+                //three consecutive count for win are determined using the next [row][column] entry after the last
+                if (board[row][column] == piece && board[row+1][column+1] == piece && board[row+2][column+2] == piece) {
                     count=3;
+                    //returning true for when win is found in form of a backslash on board
+                    return true;
                 } else {
                     count = 0;
                 }
-                if (count == 3) {
-                    return true;
-                }
             }
         }
-//        }
+        //return false otherwise
         return false;
     }
 
+
+    /**
+     * function searches for a diagonal (/) win anywhere on the board and returns win if true
+     *
+     * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     * @param piece X==1/O==2
+     * @return true if there is 3 consecutive entries of piece (X/O) in a front-slash form on board
+     */
     public static boolean winInDiagonalFS(int [][] board, int piece) {
+        //iterating through board from bottom left corner to top right corner
         int count=0;
+        //row decrements while column increments when searching through each entry to find winning pieces
+        //adjusting for indexing errors with 2 and -2
         for (int i = board.length-1; i >=2; i--) {
             for (int j = 0; j<board[i].length-2; j++) {
+                //consecutive count of 3 winning pieces is determined by the next piece down one row and right one column
                 if (board[i][j] == piece && board[i-1][j+1] == piece && board[i-2][j+2] == piece) {
                     count=3;
+                    //returning true for when win is found in form of a front-slash on board
                     return true;
                 } else {
                     count = 0;
                 }
             }
         }
-//        }
+        //return false otherwise
         return false;
     }
 
 
+    /**
+     * function scans board for hint row by row to help user identify winning entry on game board
+     *
+     * @param board The 2D array board of size rows (dimension 1) and columns (dimension 2)
+     * @param piece X==1/O==2
+     * @return coordinates of where hint is located or if no hint provided then return default coordinates
+     */
     private static int[] hint(int[][] board, int piece) {
-        for (int i=0; i< board.length; i++) {
-            for (int c=0; c<board[i].length; c++) {
-                if (canPlay(board, i, c) == true) {
-                    play(board, i, c, piece);
-                    if (winInRow(board, i, piece) == true || winInColumn(board, c, piece) == true || winInDiagonalBS(board, piece) == true || winInDiagonalFS(board, piece) == true) {
-                        // remove it
-                        board[i][c] = EMPTY;
-                        return new int[] {i,c};
+        //iterate through each row and column in board
+        for (int row=0; row< board.length; row++) {
+            for (int col=0; col<board[row].length; col++) {
+                //if play is allowed in the location and there is a win possibility in the spot
+                if (canPlay(board, row, col) == true) {
+                    play(board, row, col, piece);
+                    if (winInRow(board, row, piece) == true || winInColumn(board, col, piece) == true || winInDiagonalBS(board, piece) == true || winInDiagonalFS(board, piece) == true) {
+                        //remove last player's move
+                        board[row][col] = EMPTY;
+                        //return hint location when it is spotted
+                        return new int[] {row,col};
 
                     }else {
-                        // remove it
-                        board[i][c] = EMPTY;
+                        //otherwise nobody has won game, remove last player's move
+                        board[row][col] = EMPTY;
 
                     }
                 }
             }
         }
+        //default return
         return new int[]{-1,-1};
     }
 
