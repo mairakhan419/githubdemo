@@ -271,7 +271,7 @@ public class TicTacToe extends Canvas {
      * @param piece X==1/O==2
      * @return coordinates of where hint is located or if no hint provided then return default coordinates
      */
-    private static int[] hint(int[][] board, int piece) {
+    public static int[] hint(int[][] board, int piece) {
         //iterate through each row and column in board
         for (int row=0; row< board.length; row++) {
             for (int col=0; col<board[row].length; col++) {
